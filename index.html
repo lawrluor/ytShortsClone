@@ -29,11 +29,13 @@
         }
         .content {
             background-color: #333;
+						z-index: -2; 	/* ensure stop button can appear above content */
         }
 				#startContainer {
 					height: 100vh;
 					width: 100vw;
 					background-color:#333;
+
 				}
 				#startButton {
 					color: white;
@@ -42,6 +44,17 @@
 					padding: 20px 40px;
 					background-color: green;
 					cursor: pointer;
+					z-index: 100;
+				}
+
+				#stopButton {
+					position: absolute;
+					/* display: none; */
+					top: 0;
+					right: 0;
+					color: white;
+					cursor: pointer;
+					z-index: -1;  /* ensure stop button can appear above content */
 				}
     </style>
 </head>
@@ -52,13 +65,14 @@
 		</div>
 
 		<!-- <div onclick="playVideo(0);">start</div> -->
-    <div id="container" class="container"></div>
+    <div id="container" class="container">
+		</div>
 
-			<script src="script.js"></script>
+		<script src="script.js"></script>
 
-			<!-- Generate iframes inside #container -->
-			<script>
-        renderVideos(["https://www.youtube.com/embed/9lQFQxvDnOc", "https://www.youtube.com/embed/9lQFQxvDnOc", "https://www.youtube.com/embed/9lQFQxvDnOc"]);
-			</script>
+		<!-- Generate iframes inside #container -->
+		<script>
+			renderVideos(["https://www.youtube.com/embed/9lQFQxvDnOc", "https://www.youtube.com/embed/9lQFQxvDnOc", "https://www.youtube.com/embed/9lQFQxvDnOc"]);
+		</script>
 	</body>
 </html>

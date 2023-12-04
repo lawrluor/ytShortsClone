@@ -1,9 +1,14 @@
 VIDEO_LINKS = [];
+SWIPE_THRESHOLD = 3;  // How many swipes allowed per second
+SWIPES = 0;  // How many swipes have been made
 
 function beginExperiment() {
 	// Hide the start button
 	let startButton = document.getElementById("startContainer");
 	startButton.style.display = "none";
+
+	// let stopButton = document.getElementById("stopButton");
+	// stopButton.style.display = "block";
 
 	// Show the videos
 	let videosContainer = document.getElementById("container");
@@ -16,7 +21,26 @@ function beginExperiment() {
 	playVideo(0);
 }
 
+function stopExperiment() {
+	// Hide the videos
+	let videosContainer = document.getElementById("container");
+	videosContainer.style.display = "none";
+
+	// Show the start button
+	// let startButton = document.getElementById("startContainer");
+	// startButton.style.display = "block";
+
+	// Stop the videos
+	for (let i = 0; i < VIDEO_LINKS.length; i++) {
+		stopVideo(i);
+	}
+
+	console.log("swipes: " + SWIPES);
+}
+
 function renderVideos(videoLinks) {
+	// <div class="content" style="transform: translateY(0px);"><iframe width="220" height="406" src="https://www.youtube.com/embed/9lQFQxvDnOc?enablejsapi=1&amp;loop=1&amp;playlist=9lQFQxvDnOc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+
 	let videosContainer = document.getElementById("container");
 	for (let i = 0; i < videoLinks.length; i++) {
 		let videoLink = videoLinks[i];
@@ -29,12 +53,20 @@ function renderVideos(videoLinks) {
 		newVideo.setAttribute("allow", "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture");
 		newVideo.setAttribute("allowfullscreen", "");
 
-		// Contain iframe inside div
+		// Add stop button
+		var stopButton = document.createElement('div');
+    stopButton.id = 'stopButton';
+    stopButton.innerHTML = 'X';
+    stopButton.onclick = stopExperiment;
+
+    // Contain iframe and button inside div
 		let div = document.createElement("div");
 		div.setAttribute("class", "content");
+		div.appendChild(stopButton);
 		div.appendChild(newVideo);
 
 		videosContainer.appendChild(div);
+
 	}
 }
 
@@ -68,14 +100,16 @@ function playVideo(index) {
 
 document.addEventListener('DOMContentLoaded', (event) => {
 	function swipeTo(index) {
-			// guard against out of bounds index
-			if (index < 0 || index > maxIndex) return;
+		// guard against out of bounds index
+		if (index < 0 || index > maxIndex) return;
 
-			currentContentIndex = index;
-			const offset = -index * window.innerHeight;
-			contents.forEach((content) => {
-					content.style.transform = `translateY(${offset}px)`;
-			});
+		currentContentIndex = index;
+		const offset = -index * window.innerHeight;
+		contents.forEach((content) => {
+				content.style.transform = `translateY(${offset}px)`;
+		});
+
+		SWIPES += 1;
 	}
 
 	const container = document.getElementById('container');
