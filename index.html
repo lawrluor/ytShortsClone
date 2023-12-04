@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YT Shorts</title>
+    <style>
+        /* Basic styles for demonstration */
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        .container {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .content {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            color: white;
+            transition: transform 0.3s ease-in-out;
+        }
+        .content {
+            background-color: #333;
+        }
+				#startContainer {
+					height: 100vh;
+					width: 100vw;
+					background-color:#333;
+				}
+				#startButton {
+					color: white;
+					border-radius: 50px;
+					margin: 0 auto;
+					padding: 20px 40px;
+					background-color: green;
+					cursor: pointer;
+				}
+    </style>
+</head>
+
+<body>
+		<div id="startContainer">
+			<div id="startButton" onclick="beginExperiment();">Start</div>
+		</div>
+
+		<!-- <div onclick="playVideo(0);">start</div> -->
+    <div id="container" class="container"></div>
+
+			<script src="script.js"></script>
+
+			<!-- Generate iframes inside #container -->
+			<script>
+        renderVideos(["https://www.youtube.com/embed/9lQFQxvDnOc", "https://www.youtube.com/embed/9lQFQxvDnOc", "https://www.youtube.com/embed/9lQFQxvDnOc"]);
+			</script>
+	</body>
+</html>
