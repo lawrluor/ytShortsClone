@@ -1,17 +1,32 @@
 START_TIME = 0;
 VIDEO_LINKS = [];
-SWIPE_THRESHOLD = 3;  // How many swipes allowed per second
+SWIPE_THRESHOLD = 0.1; // 0.75;  // How many swipes allowed per second
 SWIPES = 0;  // How many swipes have been made
 
-function canSwipe() {
+function showToast(index) {
+	var toast = document.getElementById("toast");
+	toast.className = "show";
+	let offset = -index * window.innerHeight;
+	toast.style.transform = `translateY(${offset}px)`;
+
+	// get scroll position
+	console.log(offset);
+	setTimeout(function(){
+		toast.className = toast.className.replace("show", "hide");
+	}, 1000);
+}
+
+function canSwipe(index) {
 	let currentTime = new Date().getTime();
 	let elapsedTime = (currentTime - START_TIME) / 1000;
 	console.log(elapsedTime)
 	let swipesPerSecond = SWIPES / elapsedTime;
 	console.log("swipes per second: " + swipesPerSecond);
 
-	if (swipesPerSecond > (SWIPE_THRESHOLD * 1000)) {
+	if (swipesPerSecond > (SWIPE_THRESHOLD)) {
 		console.log("too many swipes");
+		// showToast(index);
+		alert("Slow down!");
 		return false;
 	}
 
@@ -174,21 +189,21 @@ document.addEventListener('DOMContentLoaded', (event) => {
 				// Swipe Up
 				console.log("attempt swipe up from " + currentContentIndex + " to " + (currentContentIndex + 1));
 
-				SWIPES += 1;
-				if (canSwipe()) {
+				if (canSwipe(currentContentIndex)) {
 					stopVideo(currentContentIndex);
 					swipeTo(currentContentIndex + 1);
 					playVideo(currentContentIndex);  // play new video which is now at updated index?
+					SWIPES += 1;
 				}
 			} else if (endY - startY > 50) {
 				// Swipe Down
-				SWIPES += 1;
 				console.log("attempt swipe down from " + currentContentIndex + " to " + (currentContentIndex - 1));
 
-				if (canSwipe()) {
+				if (canSwipe(currentContentIndex)) {
 					stopVideo(currentContentIndex);
 					swipeTo(currentContentIndex - 1);
 					playVideo(currentContentIndex);  // play new video which is now at updated index?
+					SWIPES += 1;
 				}
 			}
 	});

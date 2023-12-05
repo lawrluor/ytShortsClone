@@ -13,11 +13,10 @@
             overflow: hidden;
         }
         .container {
-					/* dvh is dynamic viewport height, which takes into account the address bar, which 100vh does not */
-					/* Therefore, 100vh is the full height of the screen, and 100dvh is the height of the screen minus the address bar */
-					/* So, when we calculate offset in the swipeTo function, window.innerHeight uses the dvh value,
-						and the offset is calculated correctly instead of over-adding the offset that includes the address bar */
-
+						/* dvh is dynamic viewport height, which takes into account the address bar, which 100vh does not */
+						/* Therefore, 100vh is the full height of the screen, and 100dvh is the height of the screen minus the address bar */
+						/* So, when we calculate offset in the swipeTo function, window.innerHeight uses the dvh value,
+							and the offset is calculated correctly instead of over-adding the offset that includes the address bar */
             width: 100vw;
             height: 100dvh;
             overflow: hidden;
@@ -61,9 +60,13 @@
 					cursor: pointer;
 					z-index: -1;  /* ensure stop button can appear above content */
 				}
+
+
+
     </style>
 
 		<link rel="stylesheet" href="reset.css">
+		<link rel="stylesheet" href="toast.css">
 </head>
 
 <body>
@@ -73,6 +76,7 @@
 
 		<!-- <div onclick="playVideo(0);">start</div> -->
     <div id="container" class="container">
+			<div id="toast" class="toast">Slow down!</div>
 		</div>
 
 		<script src="script.js"></script>
