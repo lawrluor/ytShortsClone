@@ -76,24 +76,25 @@ function renderVideos(videoLinks, isProcessed=false) {
 	for (let i = 0; i < videoLinks.length; i++) {
 		let videoLink = videoLinks[i];
 		let newLink = isProcessed ? videoLink : convertLink(videoLink);
+
 		let newVideo = document.createElement("iframe");
-		newVideo.setAttribute("width", 220);
-		newVideo.setAttribute("height", 406);
+		newVideo.setAttribute("width", "100%");
+		newVideo.setAttribute("height", window.innerHeight * 0.75);
 		newVideo.setAttribute("src", newLink);
 		newVideo.setAttribute("frameborder", "0");
 		newVideo.setAttribute("allow", "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture");
 		newVideo.setAttribute("allowfullscreen", "");
 
 		// Add stop button
-		var stopButton = document.createElement('div');
-    stopButton.id = 'stopButton';
-    stopButton.innerHTML = 'X';
-    stopButton.onclick = stopExperiment;
+		// var stopButton = document.createElement('div');
+    // stopButton.id = 'stopButton';
+    // stopButton.innerHTML = 'X';
+    // stopButton.onclick = stopExperiment;
 
     // Contain iframe and button inside div
 		let div = document.createElement("div");
 		div.setAttribute("class", "content");
-		div.appendChild(stopButton);
+		// div.appendChild(stopButton);
 		div.appendChild(newVideo);
 
 		videosContainer.appendChild(div);
@@ -135,21 +136,28 @@ function playVideo(index) {
 }
 
 document.addEventListener('DOMContentLoaded', (event) => {
-	function swipeTo(index) {
-		// guard against out of bounds index
-		if (index < 0 || index > maxIndex);
-
-		currentContentIndex = index;
-		const offset = -index * window.innerHeight;
-		contents.forEach((content) => {
-				content.style.transform = `translateY(${offset}px)`;
-		});
-	}
-
 	const container = document.getElementById('container');
 	let currentContentIndex = 0;
 	const contents = document.querySelectorAll('.content');
 	const maxIndex = contents.length - 1;
+
+	function swipeTo(index) {
+		// guard against out of bounds index
+		if (index < 0 || index > maxIndex)
+			return;
+
+		currentContentIndex = index;
+		const offset = (-index * window.innerHeight);
+		contents.forEach((content) => {
+			content.style.transform = `translateY(${offset}px)`;
+		});
+	}
+
+	// vid1: 0-300
+	// screen height: 400
+	// vid2: start at 400-700
+	// vid3: start at 800-1100
+
 
 	// Basic swipe detection
 	let startY;
