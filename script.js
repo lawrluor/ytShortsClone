@@ -25,7 +25,7 @@ function canSwipe(index) {
 
 	if (swipesPerSecond > (SWIPE_THRESHOLD)) {
 		console.log("too many swipes");
-		// showToast(index);
+		showToast(index);
 		alert("Slow down!");
 		return false;
 	}
@@ -51,7 +51,6 @@ function beginExperiment() {
 	// renderVideos(videoLinks);
 
 	// Play the first video
-	// playVideo(0);
 
 	// basically, videos aren't allowed to autoplay with sound if there is no explicit action from	the user
 	// swiping is not considered an explicit action
@@ -64,7 +63,12 @@ function beginExperiment() {
 	for (let i = 0; i < iframes.length; i++) {
 		var iframe = iframes[i];
 		iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'playVideo' }), '*');
+		iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'stopVideo' }), '*');  // immediately stop videos but leave them in a preloaded state where they can autoplay unmuted
 	}
+
+	// replay first video to unmute it and ensure that it plays first
+	playVideo(0);
+
 }
 
 function stopExperiment() {
