@@ -1,7 +1,26 @@
 START_TIME = 0;
 VIDEO_LINKS = [];
-SWIPE_THRESHOLD = 0.1; // 0.75;  // How many swipes allowed per second
+SWIPE_THRESHOLD = 0.2; // 0.75;  // How many swipes allowed per second
 SWIPES = 0;  // How many swipes have been made
+let csvData = "";
+
+function addData(elapsedTime){
+	csvData += `${SWIPES},${elapsedTime}\n`;
+	console.log(csvData);
+}
+
+function downloadCSV() {
+	var element = document.createElement('a');
+	element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(csvData));
+	element.setAttribute('download', 'data.csv');
+
+	element.style.display = 'none';
+	document.body.appendChild(element);
+
+	element.click();
+
+	document.body.removeChild(element);
+}
 
 function showToast(index) {
 	var toast = document.getElementById("toast");
@@ -25,12 +44,13 @@ function canSwipe(index) {
 
 	if (swipesPerSecond > (SWIPE_THRESHOLD)) {
 		console.log("too many swipes");
-		showToast(index);
+		// showToast(index);
 		alert("Slow down!");
 		return false;
+	} else {
+		addData(elapsedTime);
+		return true;
 	}
-
-	return true;
 }
 
 function beginExperiment() {
@@ -40,8 +60,8 @@ function beginExperiment() {
 	let startButton = document.getElementById("startContainer");
 	startButton.style.display = "none";
 
-	// let stopButton = document.getElementById("stopButton");
-	// stopButton.style.display = "block";
+	let stopButton = document.getElementById("stopButton");
+	stopButton.style.display = "block";
 
 	// Show the videos
 	let videosContainer = document.getElementById("container");
@@ -86,6 +106,8 @@ function stopExperiment() {
 	}
 
 	console.log("swipes: " + SWIPES);
+
+	downloadCSV();
 }
 
 function renderVideos(videoLinks, isProcessed=false) {
@@ -105,15 +127,15 @@ function renderVideos(videoLinks, isProcessed=false) {
 		newVideo.setAttribute("allowfullscreen", "");
 
 		// Add stop button
-		// var stopButton = document.createElement('div');
-    // stopButton.id = 'stopButton';
-    // stopButton.innerHTML = 'X';
-    // stopButton.onclick = stopExperiment;
+		var stopButton = document.createElement('div');
+    stopButton.id = 'stopButton';
+    stopButton.innerHTML = 'X';
+    stopButton.onclick = stopExperiment;
 
     // Contain iframe and button inside div
 		let div = document.createElement("div");
 		div.setAttribute("class", "content");
-		// div.appendChild(stopButton);
+		div.appendChild(stopButton);
 		div.appendChild(newVideo);
 
 		videosContainer.appendChild(div);
