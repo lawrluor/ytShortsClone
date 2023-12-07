@@ -1,22 +1,22 @@
 START_TIME = 0;
 VIDEO_LINKS = [];
-SWIPE_THRESHOLD = 0.3; // 0.75;  // How many swipes allowed per second
+SWIPE_THRESHOLD = 0.25; // 0.75;  // How many swipes allowed per second
 SWIPES = 0;  // How many swipes have been made
-let csvData = "";
+let csvData = "swipeNumber,time\n";
 
-function addData(elapsedTime){
-	csvData += `${SWIPES},${elapsedTime}\n`;
-	console.log(csvData);
+function addData(numOfSwipes, elapsedTime){
+	csvData += `${numOfSwipes + 1},${elapsedTime}\n`;  // one-indexed
 }
 
-function downloadCSV(csvData) {
+function downloadCSV() {
 	// make file name based on start time
 	// convert START_TIME to date
 	// Format should be MM-DD-YYYY_HH-MM-SS
 
-	// let date = new Date(START_TIME); 	// use Eastern standard time
-	// let hours = date.setHours(date.getHours() - 4);
-	// let fileName = `${month}-${date.getDate()}-${date.getFullYear()}_${hours}-${date.getMinutes()}-${date.getSeconds()}.csv`;
+	let date = new Date(START_TIME);
+	let hours = date.setHours(date.getHours() - 4);  // use Eastern standard time
+	let month = date.getMonth() + 1; 	// months are 0 indexed
+	let fileName = `${month}-${date.getDate()}-${date.getFullYear()}_${hours}-${date.getMinutes()}-${date.getSeconds()}.csv`;
 
 	// Check if the download attribute is supported
 	var isDownloadSupported = typeof document.createElement('a').download !== 'undefined';
@@ -25,7 +25,7 @@ function downloadCSV(csvData) {
 			// Use the original method for browsers that support the download attribute
 			var element = document.createElement('a');
 			element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(csvData));
-			element.setAttribute('download', 'data.csv');
+			element.setAttribute('download', fileName);
 
 			element.style.display = 'none';
 			document.body.appendChild(element);
@@ -37,10 +37,7 @@ function downloadCSV(csvData) {
 			// Fallback for browsers that do not support the download attribute
 			// Open the data in a new tab or window
 			var encodedUri = encodeURI('data:text/csv;charset=utf-8,' + encodeURIComponent(csvData));
-
-			// window.open(encodedUri);
 			window.location.assign(encodedUri);
-			document.getElementById('my_iframe').src = encodedUri;
 	}
 
 	// Reload the page to begin a new experiment
@@ -71,7 +68,7 @@ function canSwipe() {
 		showToast();
 		return false;
 	} else {
-		addData(elapsedTime);
+		addData(SWIPES, elapsedTime);
 		return true;
 	}
 }
