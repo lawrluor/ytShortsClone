@@ -20,6 +20,9 @@ function downloadCSV() {
 	element.click();
 
 	document.body.removeChild(element);
+
+	// Reload the page to begin a new experiment
+	location.reload();
 }
 
 function showToast() {
@@ -90,23 +93,20 @@ function beginExperiment() {
 
 }
 
-function stopExperiment() {
-	// Hide the videos
-	let videosContainer = document.getElementById("container");
-	videosContainer.style.display = "none";
-
-	// Show the start button
-	// let startButton = document.getElementById("startContainer");
-	// startButton.style.display = "block";
-
+function endExperiment() {
 	// Stop the videos
 	for (let i = 0; i < VIDEO_LINKS.length; i++) {
 		stopVideo(i);
 	}
 
-	console.log("swipes: " + SWIPES);
+	// Hide the videos
+	let videosContainer = document.getElementById("container");
+	videosContainer.style.display = "none";
 
-	downloadCSV();
+	let endContainer = document.getElementById("endContainer");
+	endContainer.style.display = "block";
+
+	// downloadCSV();
 }
 
 function renderVideos(videoLinks, isProcessed=false) {

@@ -1,10 +1,12 @@
 .toast {
 	position: fixed;
+	font-size: 16px;
 	bottom: 10px;
+	right: 10px;
 	color: white;
 	background-color: salmon;
-	border-radius: 10px;
-	padding: 10px;
+	border-radius: 12px;
+	padding: 12px;
 	cursor: pointer;
 	z-index: 10;  /* ensure stop button can appear above content */
 	text-align: center;
@@ -13,14 +15,14 @@
 /* Show the toast */
 .show {
 	display: block;
-	-webkit-animation: fadein 0.4s fadeout 0.4s;
-	animation: fadein 0.4s fadeout 0.4s;
+	-webkit-animation: fadein 0.5s fadeout 0.5s;
+	animation: fadein 0.5s fadeout 0.5s;
 }
 
 .hide {
 	display: none;
-	-webkit-animation: fadein 0.4s fadeout 0.4s;
-	animation: fadein 0.4s fadeout 0.4s;
+	-webkit-animation: fadein 0.5s fadeout 0.5s;
+	animation: fadein 0.5s fadeout 0.5s;
 }
 
 /* Animations to fade the toast in and out */
