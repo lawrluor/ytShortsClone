@@ -1,6 +1,6 @@
 START_TIME = 0;
 VIDEO_LINKS = [];
-SWIPE_THRESHOLD = 0.2; // 0.75;  // How many swipes allowed per second
+SWIPE_THRESHOLD = 0.3; // 0.75;  // How many swipes allowed per second
 SWIPES = 0;  // How many swipes have been made
 let csvData = "";
 
@@ -9,17 +9,28 @@ function addData(elapsedTime){
 	console.log(csvData);
 }
 
-function downloadCSV() {
-	var element = document.createElement('a');
-	element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(csvData));
-	element.setAttribute('download', 'data.csv');
+function downloadCSV(csvData) {
+	// Check if the download attribute is supported
+	var isDownloadSupported = typeof document.createElement('a').download !== 'undefined';
 
-	element.style.display = 'none';
-	document.body.appendChild(element);
+	if (isDownloadSupported) {
+			// Use the original method for browsers that support the download attribute
+			var element = document.createElement('a');
+			element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(csvData));
+			element.setAttribute('download', 'data.csv');
 
-	element.click();
+			element.style.display = 'none';
+			document.body.appendChild(element);
 
-	document.body.removeChild(element);
+			element.click();
+
+			document.body.removeChild(element);
+	} else {
+			// Fallback for browsers that do not support the download attribute
+			// Open the data in a new tab or window
+			var encodedUri = encodeURI('data:text/csv;charset=utf-8,' + encodeURIComponent(csvData));
+			window.open(encodedUri);
+	}
 
 	// Reload the page to begin a new experiment
 	location.reload();
@@ -41,12 +52,11 @@ function showToast() {
 function canSwipe() {
 	let currentTime = new Date().getTime();
 	let elapsedTime = (currentTime - START_TIME) / 1000;
-	console.log(elapsedTime)
+	console.log("elapsed time: " + elapsedTime);
 	let swipesPerSecond = SWIPES / elapsedTime;
 	console.log("swipes per second: " + swipesPerSecond);
 
 	if (swipesPerSecond > (SWIPE_THRESHOLD)) {
-		console.log("too many swipes");
 		showToast();
 		return false;
 	} else {
@@ -94,9 +104,11 @@ function beginExperiment() {
 }
 
 function endExperiment() {
-	// Stop the videos
-	for (let i = 0; i < VIDEO_LINKS.length; i++) {
-		stopVideo(i);
+	// Stop all videos
+	var iframes = document.querySelectorAll('iframe');
+	for (let i = 0; i < iframes.length; i++) {
+		var iframe = iframes[i];
+		iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'stopVideo' }), '*');  // immediately stop videos but leave them in a preloaded state where they can autoplay unmuted
 	}
 
 	// Hide the videos
