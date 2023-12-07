@@ -10,6 +10,14 @@ function addData(elapsedTime){
 }
 
 function downloadCSV(csvData) {
+	// make file name based on start time
+	// convert START_TIME to date
+	// Format should be MM-DD-YYYY_HH-MM-SS
+
+	// let date = new Date(START_TIME); 	// use Eastern standard time
+	// let hours = date.setHours(date.getHours() - 4);
+	// let fileName = `${month}-${date.getDate()}-${date.getFullYear()}_${hours}-${date.getMinutes()}-${date.getSeconds()}.csv`;
+
 	// Check if the download attribute is supported
 	var isDownloadSupported = typeof document.createElement('a').download !== 'undefined';
 
@@ -29,11 +37,14 @@ function downloadCSV(csvData) {
 			// Fallback for browsers that do not support the download attribute
 			// Open the data in a new tab or window
 			var encodedUri = encodeURI('data:text/csv;charset=utf-8,' + encodeURIComponent(csvData));
-			window.open(encodedUri);
+
+			// window.open(encodedUri);
+			window.location.assign(encodedUri);
+			document.getElementById('my_iframe').src = encodedUri;
 	}
 
 	// Reload the page to begin a new experiment
-	location.reload();
+	// location.reload();
 }
 
 function showToast() {
