@@ -10,6 +10,7 @@
         body, html {
             margin: 0;
             padding: 0;
+						font-size: 32px;
             overflow: hidden;
         }
         .container {
@@ -27,8 +28,6 @@
 						/*
 						margin-top: 12.5vh;
 						margin-bottom: 12.5vh; */
-
-            font-size: 24px;
             color: white;
             transition: transform 0.3s ease-in-out;
 						background-color: #333;
@@ -43,26 +42,25 @@
 				}
 				#startButton {
 					color: white;
-					border-radius: 50px;
+					border-radius: 20px;
 					margin: 0 auto;
 					padding: 20px 40px;
 					background-color: green;
 					cursor: pointer;
 					z-index: 100;
+					width: 100px;
+					text-align: center;
 				}
 
 				#stopButton {
-					position: absolute;
-					/* display: none; */
-					top: 0;
-					right: 0;
+					position: fixed;
+					display: none;
+					top: 10px;
+					right: 10px;
 					color: white;
 					cursor: pointer;
 					z-index: 10;  /* ensure stop button can appear above content */
 				}
-
-
-
     </style>
 
 		<link rel="stylesheet" href="reset.css">
@@ -76,7 +74,12 @@
 
 		<!-- <div onclick="playVideo(0);">start</div> -->
     <div id="container" class="container">
-			<!-- <div id="toast" class="toast">Slow down!</div> -->
+			<div id="stopButton" onclick="stopExperiment();">X</div>
+			<div id="toast" class="toast hide">Slow Down!</div>
+		</div>
+
+		<div id="endContainer">
+			<div id="endButton" onclick="downloadCSV();">Download Experiment Data</div>
 		</div>
 
 		<script src="script.js"></script>

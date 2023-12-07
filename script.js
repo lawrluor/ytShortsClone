@@ -22,20 +22,20 @@ function downloadCSV() {
 	document.body.removeChild(element);
 }
 
-function showToast(index) {
+function showToast() {
 	var toast = document.getElementById("toast");
-	toast.className = "show";
-	let offset = -index * window.innerHeight;
-	toast.style.transform = `translateY(${offset}px)`;
 
-	// get scroll position
-	console.log(offset);
+	// toggle between hide and show
+	if (toast.className.includes("hide")) {
+		toast.className = toast.className.replace("hide", "show");
+	}
+
 	setTimeout(function(){
 		toast.className = toast.className.replace("show", "hide");
 	}, 1000);
 }
 
-function canSwipe(index) {
+function canSwipe() {
 	let currentTime = new Date().getTime();
 	let elapsedTime = (currentTime - START_TIME) / 1000;
 	console.log(elapsedTime)
@@ -44,8 +44,7 @@ function canSwipe(index) {
 
 	if (swipesPerSecond > (SWIPE_THRESHOLD)) {
 		console.log("too many swipes");
-		// showToast(index);
-		alert("Slow down!");
+		showToast();
 		return false;
 	} else {
 		addData(elapsedTime);
@@ -126,16 +125,9 @@ function renderVideos(videoLinks, isProcessed=false) {
 		newVideo.setAttribute("allow", "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture");
 		newVideo.setAttribute("allowfullscreen", "");
 
-		// Add stop button
-		var stopButton = document.createElement('div');
-    stopButton.id = 'stopButton';
-    stopButton.innerHTML = 'X';
-    stopButton.onclick = stopExperiment;
-
     // Contain iframe and button inside div
 		let div = document.createElement("div");
 		div.setAttribute("class", "content");
-		div.appendChild(stopButton);
 		div.appendChild(newVideo);
 
 		videosContainer.appendChild(div);
@@ -215,7 +207,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 				// Swipe Up
 				console.log("attempt swipe up from " + currentContentIndex + " to " + (currentContentIndex + 1));
 
-				if (canSwipe(currentContentIndex)) {
+				if (canSwipe()) {
 					stopVideo(currentContentIndex);
 					swipeTo(currentContentIndex + 1);
 					playVideo(currentContentIndex);  // play new video which is now at updated index?
@@ -225,7 +217,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 				// Swipe Down
 				console.log("attempt swipe down from " + currentContentIndex + " to " + (currentContentIndex - 1));
 
-				if (canSwipe(currentContentIndex)) {
+				if (canSwipe()) {
 					stopVideo(currentContentIndex);
 					swipeTo(currentContentIndex - 1);
 					playVideo(currentContentIndex);  // play new video which is now at updated index?
