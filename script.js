@@ -2,7 +2,7 @@ START_TIME = 0;
 VIDEO_LINKS = [];
 SWIPE_THRESHOLD = 0.25; // 0.75;  // How many swipes allowed per second
 SWIPES = 0;  // How many swipes have been made
-let csvData = "swipeNumber,time\n";
+let csvData = "videoNumber,time\n";
 
 function addData(numOfSwipes, elapsedTime){
 	csvData += `${numOfSwipes + 1},${elapsedTime}\n`;  // one-indexed
@@ -14,9 +14,9 @@ function downloadCSV() {
 	// Format should be MM-DD-YYYY_HH-MM-SS
 
 	let date = new Date(START_TIME);
-	let hours = date.setHours(date.getHours() - 4);  // use Eastern standard time
+	let hours = date.getHours() - 4;  // use Eastern standard time
 	let month = date.getMonth() + 1; 	// months are 0 indexed
-	let fileName = `${month}-${date.getDate()}-${date.getFullYear()}_${hours}-${date.getMinutes()}-${date.getSeconds()}.csv`;
+	let fileName = `${month}-${date.getDate()}-${date.getFullYear()}_${hours}.${date.getMinutes()}.${date.getSeconds()}.csv`;
 
 	// Check if the download attribute is supported
 	var isDownloadSupported = typeof document.createElement('a').download !== 'undefined';
