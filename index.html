@@ -8,13 +8,12 @@
 
 		<!-- Google Fonts -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 
 		<link rel="stylesheet" href="reset.css">
 		<link rel="stylesheet" href="toast.css">
     <style>
-
         body, html {
             margin: 0;
             padding: 0;
@@ -107,21 +106,23 @@
 					text-align: center;
 				}
     </style>
-
-
 </head>
 
 <body>
+<!-- controls (start/stop) -->
 		<div id="startContainer">
 			<div id="startButton" onclick="beginExperiment();">Start</div>
 		</div>
 
+		<!-- Not rendered until we start the experiment -->
 		<!-- <div onclick="playVideo(0);">start</div> -->
     <div id="container" class="container">
+			<!-- iframes of videos will be generated here -->
 			<div id="stopButton" onclick="endExperiment();">X</div>
 			<div id="toast" class="toast hide">Slow Down</div>
 		</div>
 
+			<!-- Not rendered until we start the experiment -->
 		<div id="endContainer">
 			<div class="endButtonContainer">
 				<div id="endButton" style="background-color: salmon;" onclick="location.reload();">Restart Experiment</div>
