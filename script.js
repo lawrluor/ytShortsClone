@@ -26,7 +26,6 @@ function downloadCSV() {
 			var element = document.createElement('a');
 			element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(csvData));
 			element.setAttribute('download', fileName);
-
 			element.style.display = 'none';
 			document.body.appendChild(element);
 
@@ -39,9 +38,6 @@ function downloadCSV() {
 			var encodedUri = encodeURI('data:text/csv;charset=utf-8,' + encodeURIComponent(csvData));
 			window.location.assign(encodedUri);
 	}
-
-	// Reload the page to begin a new experiment
-	// location.reload();
 }
 
 function showToast() {
@@ -52,7 +48,7 @@ function showToast() {
 		toast.className = toast.className.replace("hide", "show");
 	}
 
-	setTimeout(function(){
+	setTimeout(function() {
 		toast.className = toast.className.replace("show", "hide");
 	}, 1000);
 }
@@ -107,8 +103,6 @@ function endExperiment() {
 
 	let endContainer = document.getElementById("endContainer");
 	endContainer.style.display = "block";
-
-	// downloadCSV();
 }
 
 function renderVideos(videoLinks, isProcessed=false) {
@@ -181,7 +175,7 @@ function canSwipe() {
 	console.log("swipes per second: " + swipesPerSecond);
 
 	if (swipesPerSecond > SWIPE_THRESHOLD) {
-		showToast();  // show an unintrusive pop-up that says something like "too many swipes, please wait"
+		showToast();  // show an unintrusive pop-up that says "slow down"
 		return false;
 	} else {
 		addData(SWIPES, elapsedTime);  // add a row of data for when this swipe occurred
@@ -203,6 +197,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		currentContentIndex = index;
 		const offset = (-index * window.innerHeight);
+
 		contents.forEach((content) => {
 			content.style.transform = `translateY(${offset}px)`;
 		});
