@@ -94,7 +94,9 @@ function endExperiment() {
 	var iframes = document.querySelectorAll('iframe');
 	for (let i = 0; i < iframes.length; i++) {
 		var iframe = iframes[i];
-		iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'stopVideo' }), '*');  // immediately stop videos but leave them in a preloaded state where they can autoplay unmuted
+
+		// immediately stop videos but leave them in a preloaded state where they can autoplay unmuted
+		iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'stopVideo' }), '*');
 	}
 
 	// Hide the videos
@@ -107,6 +109,7 @@ function endExperiment() {
 
 function renderVideos(videoLinks, isProcessed=false) {
 	/*
+		Example: of a video div:
 		<div class="content" style="transform: translateY(0px);">
 			<iframe width="220" height="406" src="https://www.youtube.com/embed/9lQFQxvDnOc?enablejsapi=1&amp;loop=1&amp;playlist=9lQFQxvDnOc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
 		</div>
