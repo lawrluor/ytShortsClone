@@ -7,11 +7,25 @@ html {
   font-family: 'Roboto', sans-serif;
 }
 
+#desktopWarning {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 12px 16px;
+  background: rgba(255, 205, 86, 0.95);
+  color: #111;
+  font-size: 16px;
+  line-height: 1.2;
+  text-align: center;
+}
+
 .container {
   /* dvh is dynamic viewport height, which takes into account the address bar, which 100vh does not */
   /* Therefore, 100vh is the full height of the screen, and 100dvh is the height of the screen minus the address bar */
   /* So, when we calculate offset in the swipeTo function, window.innerHeight uses the dvh value,
-							and the offset is calculated correctly instead of over-adding the offset that includes the address bar */
+						and the offset is calculated correctly instead of over-adding the offset that includes the address bar */
   width: 100vw;
   height: 100dvh;
   overflow: hidden;
@@ -50,6 +64,11 @@ html {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  display: none;
+}
+
+#startButton:hover {
+  background-color: #4CAF50;
 }
 
 #stopButton {
@@ -61,6 +80,10 @@ html {
   cursor: pointer;
   z-index: 10;
   /* ensure stop button can appear above content */
+}
+
+#stopButton:hover {
+  background-color: #ff4444;
 }
 
 #endContainer {
