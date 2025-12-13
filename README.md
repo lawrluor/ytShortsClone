@@ -1,8 +1,8 @@
 A mobile web app built as a proof-of-concept for a TikTok clone but using YouTube shorts.
  
-Intended for mobile browsers (not desktop). Designed as an experiment to measure user behavior when they receive notifications that they are scrolling too quickly. Exports a data file with scrolling metrics after each session.
+Intended for mobile browsers and will not work on desktop browsers. Designed as an experiment to measure user behavior when they receive toast notifications that they are scrolling too quickly. Exports a data file with scrolling metrics after each session.
 
-## Challenges / hacks
+## Challenges / Workarounds
 
 - **YouTube looping in an iframe**
   - Uses the YouTube iframe API (`enablejsapi=1`) and the common loop workaround (`loop=1` + `playlist=<videoId>`), since looping does not reliably work without the `playlist` parameter.
