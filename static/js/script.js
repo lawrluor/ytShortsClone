@@ -214,34 +214,34 @@ document.addEventListener('DOMContentLoaded', () => {
 	// Basic swipe detection
 	let startY;
 	container.addEventListener('touchstart', (e) => {
-			startY = e.touches[0].clientY;
+		startY = e.touches[0].clientY;
 	});
 
 	container.addEventListener('touchend', (e) => {
-			if (!startY) return;
+		if (!startY) return;
 
-			let endY = e.changedTouches[0].clientY;
-			// swipe means 50px difference in beginning of drag and end of drag
-			if (startY - endY > 50) {
-				// Swipe Up
-				console.log("attempt swipe up from " + currentContentIndex + " to " + (currentContentIndex + 1));
+		let endY = e.changedTouches[0].clientY;
+		// swipe means 50px difference in beginning of drag and end of drag
+		if (startY - endY > 50) {
+			// Swipe Up
+			console.log("attempt swipe up from " + currentContentIndex + " to " + (currentContentIndex + 1));
 
-				if (canSwipe()) {
-					stopVideo(currentContentIndex);  // stop playing the current video
-					swipeTo(currentContentIndex + 1);
-					playVideo(currentContentIndex);  // play new video which is now at updated index
-					SWIPES += 1;
-				}
-			} else if (endY - startY > 50) {
-				// Swipe Down
-				console.log("attempt swipe down from " + currentContentIndex + " to " + (currentContentIndex - 1));
-
-				if (canSwipe()) {
-					stopVideo(currentContentIndex);
-					swipeTo(currentContentIndex - 1);
-					playVideo(currentContentIndex);  // play new video which is now at updated index
-					SWIPES += 1;
-				}
+			if (canSwipe()) {
+				stopVideo(currentContentIndex);  // stop playing the current video
+				swipeTo(currentContentIndex + 1);
+				playVideo(currentContentIndex);  // play new video which is now at updated index
+				SWIPES += 1;
 			}
+		} else if (endY - startY > 50) {
+			// Swipe Down
+			console.log("attempt swipe down from " + currentContentIndex + " to " + (currentContentIndex - 1));
+
+			if (canSwipe()) {
+				stopVideo(currentContentIndex);
+				swipeTo(currentContentIndex - 1);
+				playVideo(currentContentIndex);  // play new video which is now at updated index
+				SWIPES += 1;
+			}
+		}
 	});
 });
