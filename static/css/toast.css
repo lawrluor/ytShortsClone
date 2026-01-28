@@ -1,15 +1,13 @@
 .toast {
+  width: 100%;
   position: fixed;
   font-size: 16px;
-  bottom: 10px;
-  right: 10px;
+  bottom: 0;
   color: white;
   background-color: salmon;
-  border-radius: 12px;
   padding: 12px;
   cursor: pointer;
   z-index: 10;
-  /* ensure stop button can appear above content */
   text-align: center;
 }
 
@@ -54,15 +52,14 @@
   }
 }
 
-/* Apply and use the animation variables created above */
 .show {
   display: block;
-  -webkit-animation: fadein 0.5s fadeout 0.5s;
-  animation: fadein 0.5s fadeout 0.5s;
+  -webkit-animation: fadein 1s, fadeout 1s 1s;
+  animation: fadein 1s, fadeout 1s 1s;
 }
 
 .hide {
   display: none;
-  -webkit-animation: fadein 0.5s fadeout 0.5s;
-  animation: fadein 0.5s fadeout 0.5s;
+  -webkit-animation: fadein 1s, fadeout 1s 1s;
+  animation: fadein 1s, fadeout 1s 1s;
 }

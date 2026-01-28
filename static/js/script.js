@@ -5,10 +5,21 @@ SWIPES = 0;  // How many swipes have been made
 let csvData = "videoNumber,time\n";
 
 function isProbablyMobileBrowser() {
-  // Prefer UA-CH when available
+  // Prefer UA-CH when available, but not supported in all browsers
   if (navigator.userAgentData && typeof navigator.userAgentData.mobile === 'boolean') {
     return navigator.userAgentData.mobile;
   }
+
+  // Check for standard mobile user agent strings (iOS, Android, etc.)
+  const ua = navigator.userAgent;
+  const isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua);
+  if (isMobileUA) return true;
+
+  // Use media query to check for coarse pointer (touch screen)
+  if (window.matchMedia && window.matchMedia("(pointer: coarse)").matches) {
+    return true;
+  }
+
   return false;
 }
 
@@ -73,7 +84,7 @@ function showToast() {
 
   setTimeout(function () {
     toast.className = toast.className.replace("show", "hide");
-  }, 1000);
+  }, 2000);
 }
 
 function beginExperiment() {
