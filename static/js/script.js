@@ -9,7 +9,7 @@ function isProbablyMobileBrowser() {
     return navigator.userAgentData.mobile;
   }
 
-  // check for standard mobile user agent strings (iOS, Android, etc.)
+  // check for standard mobile user agent strings (iOS, Android, etc)
   const ua = navigator.userAgent;
   const isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua);
   if (isMobileUA) return true;
