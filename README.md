@@ -1,4 +1,4 @@
-A mobile web app built as a proof-of-concept for a TikTok clone but using YouTube shorts.
+Designed as an experiment to measure user scrolling behavior - a demo/snippet of a larger project.
  
 Intended for mobile browsers and will not work on desktop browsers. Designed as an experiment to measure user behavior when they receive toast notifications that they are scrolling too quickly. Exports a data file with scrolling metrics after each session.
 
